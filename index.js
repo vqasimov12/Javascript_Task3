@@ -81,16 +81,7 @@ const products = [
   },
 ];
 
-const basket = [
-  {
-    title: "Wireless Mouse",
-    category: "Electronics",
-    price: 25.99,
-    stock: 150,
-    image:
-      "https://deltastore.az/_next/image?url=https%3A%2F%2Fdeltastoreimages.s3.eu-central-1.amazonaws.com%2FRapoo-1620--Optical-Wireless-Mouse_1JuX7_.webp&w=640&q=100",
-  }
-];
+const basket = []
 const ul = document.createElement("ul");
 const ul1 = document.createElement("ul");
 
@@ -167,13 +158,12 @@ for (let i = 0; i < products.length; i++) {
     btn.style.color = "white";
   });
 
-  const currentProduct = products[i];
   btn.addEventListener("click", () => {
     if (products[i].stock === 0) console.log("This product is out of stock");
     else {
-      basket.push(currentProduct);
-      console.log("succesful");
-      // products[i].stock--
+      basket.push(products[i]);
+      updateBasket()
+      products[i].stock--
     }
   });
 
@@ -185,8 +175,9 @@ for (let i = 0; i < products.length; i++) {
   ul.appendChild(li);
 }
 
-function updateBasket() {
-    ul1.innerHTML=""
+function updateBasket(){
+
+  ul1.innerHTML=""
   for (let i = 0; i < basket.length; i++) {
     const li = document.createElement("li");
     li.style.display = "flex";
@@ -242,14 +233,19 @@ function updateBasket() {
       btn.style.color = "white";
     });
 
+
+    btn.addEventListener("click",()=>{
+
+    })
     li.appendChild(img);
     li.appendChild(price);
     li.appendChild(h3);
     li.appendChild(h4);
     li.appendChild(btn);
-    ul.appendChild(li);
+    ul1.appendChild(li);
   }
 }
+
 const t = document.createElement("h1");
 const t1 = document.createElement("h1");
 t.innerText = "Products";
