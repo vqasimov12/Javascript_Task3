@@ -81,7 +81,7 @@ const products = [
   },
 ];
 
-const basket = []
+const basket = [];
 const ul = document.createElement("ul");
 const ul1 = document.createElement("ul");
 
@@ -159,11 +159,22 @@ for (let i = 0; i < products.length; i++) {
   });
 
   btn.addEventListener("click", () => {
-    if (products[i].stock === 0) console.log("This product is out of stock");
-    else {
+    const checkExists = basket.some(item =>
+      item.price === products[i].price &&
+      item.category === products[i].category &&
+      item.title === products[i].title &&
+      item.image === products[i].image
+    );
+    
+    if (checkExists) {
+      console.log("This item is already in your basket");
+    } else if (products[i].stock === 0) 
+      console.log("This product is out of stock");
+     else {
+       products[i].stock--;
       basket.push(products[i]);
-      updateBasket()
-      products[i].stock--
+      updateBasket();
+      console.log("Product successfully added to your basket")
     }
   });
 
@@ -175,9 +186,8 @@ for (let i = 0; i < products.length; i++) {
   ul.appendChild(li);
 }
 
-function updateBasket(){
-
-  ul1.innerHTML=""
+function updateBasket() {
+  ul1.innerHTML = "";
   for (let i = 0; i < basket.length; i++) {
     const li = document.createElement("li");
     li.style.display = "flex";
@@ -233,10 +243,10 @@ function updateBasket(){
       btn.style.color = "white";
     });
 
-
-    btn.addEventListener("click",()=>{
-
-    })
+    btn.addEventListener("click", () => {
+      basket.splice(i, 1); 
+      updateBasket();
+    });
     li.appendChild(img);
     li.appendChild(price);
     li.appendChild(h3);
